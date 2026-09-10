@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   description: "Echte Begegnungen. Echte Chancen. Unternehmen kommen in die Schule.",
   alternates: { canonical: "/" },
   icons: { icon: "/favicon.svg" },
-  openGraph: { type: "website", siteName: "Zukunft trifft Mittelstand", locale: "de_DE", images: [{ url: "/brand/og-card.svg", width: 1200, height: 630, alt: "Zukunft trifft Mittelstand – Echte Begegnungen. Echte Chancen." }] },
-  twitter: { card: "summary_large_image", images: ["/brand/og-card.svg"] },
+  openGraph: { type: "website", siteName: "Zukunft trifft Mittelstand", locale: "de_DE", images: [{ url: "/brand/og-card.png", width: 1200, height: 630, alt: "Zukunft trifft Mittelstand – Echte Begegnungen. Echte Chancen." }] },
+  twitter: { card: "summary_large_image", images: ["/brand/og-card.png"] },
   robots: { index: true, follow: true },
 };
 
