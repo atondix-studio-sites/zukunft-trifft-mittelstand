@@ -4,7 +4,7 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getStudioContent } from "@/lib/content";
 
-export const metadata = { title: "Kontakt" };
+export const metadata = { title: "Kontakt", description: "Kontaktieren Sie Zukunft trifft Mittelstand als Schule oder Ausbildungsbetrieb.", alternates: { canonical: "/kontakt" } };
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ rolle?: string }> }) {
   const [content, params] = await Promise.all([getStudioContent(), searchParams]);

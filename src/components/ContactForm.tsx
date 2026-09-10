@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowRight } from "@phosphor-icons/react";
+import { trackEvent } from "@/lib/analytics";
 
 type Role = "schule" | "unternehmen";
 
@@ -9,16 +10,17 @@ export function ContactForm({ initialRole, configured }: { initialRole?: Role; c
   const [role, setRole] = useState<Role>(initialRole ?? "schule");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    const onSent = () => { setStatus("success"); setMessage("Vielen Dank. Ihre Nachricht ist angekommen. Wir melden uns zeitnah."); };
-    const onError = () => { setStatus("error"); setMessage("Die Nachricht konnte gerade nicht gesendet werden. Bitte nutzen Sie alternativ E-Mail oder Telefon."); };
+    const onSent = () => { setStatus("success"); setMessage("Vielen Dank. Ihre Nachricht ist angekommen. Wir melden uns zeitnah."); trackEvent("contact_form_success", { role }); };
+    const onError = () => { setStatus("error"); setMessage("Die Nachricht konnte gerade nicht gesendet werden. Bitte nutzen Sie alternativ E-Mail oder Telefon."); trackEvent("contact_form_error", { role }); };
     document.addEventListener("atondix:form:sent", onSent);
     document.addEventListener("atondix:form:error", onError);
     return () => { document.removeEventListener("atondix:form:sent", onSent); document.removeEventListener("atondix:form:error", onError); };
-  }, []);
+  }, [role]);
 
-  return <form data-atondix-form className="surface-card p-6 sm:p-8" onSubmit={() => { setStatus("sending"); setMessage(""); }}>
+  return <form data-atondix-form className="surface-card p-6 sm:p-8" onFocus={() => { if (!started) { setStarted(true); trackEvent("contact_form_start", { role }); } }} onSubmit={() => { setStatus("sending"); setMessage(""); }}>
     <fieldset disabled={!configured || status === "sending"}>
       <legend className="display text-3xl font-bold text-brand-navy">Ich bin …</legend>
       <div className="mt-4 grid grid-cols-2 gap-2 rounded-[10px] bg-brand-mist p-1">
