@@ -1,0 +1,12 @@
+# Generated image provenance
+
+Generated with the built-in image generation tool on 2026-09-10. Optimized to 1536 × 1024 WebP for the website. Fictional illustrative scenes; not event documentation or testimonial portraits. Original PNGs remain in the Codex generated_images folder.
+
+## public/images/classroom-conversation.webp
+
+Use case: photorealistic-natural. Create a landscape 3:2 photographic website hero for Zukunft trifft Mittelstand, a German regional school apprenticeship conversation event. A candid close-medium scene in a bright ordinary German classroom: a female skilled-trades trainer age 35 in a forest-green overshirt seated at a light wooden school desk talking warmly with two teenage students age 16-18, one boy with curly dark hair and one girl with brown hair, everyday casual clothing. All three faces visible in natural three-quarter profile, listening and a spontaneous small smile; no looking at camera. Notebook and a small metal mechanical part on the desk, other student-company pairs softly out of focus in background, pale classroom walls and daylight windows. Human, approachable documentary campaign photography, true skin texture, authentic imperfect school setting, natural daylight, deep green accents. Frame people in central 75 percent so image works cropped. No text, watermarks, logos, staged handshake, business suits or fake UI. This is illustrative generated photography, not a depiction of a real event.
+
+## public/images/craft-conversation.webp
+
+Use case: photorealistic-natural. Landscape 3:2 candid documentary photograph for a German school apprenticeship event website. A friendly male craftsman in his 40s wearing a navy work shirt seated across a classroom table from a teenage girl age 17 in a burgundy sweater and a teenage boy age 17 in a light casual shirt. He explains a small wooden joinery sample held naturally on the table; students lean forward with curiosity. Faces clearly visible, quiet lively conversation, not posing. Different composition from a corporate stock photo: camera at seated eye level, medium-wide, foreground table, airy ordinary German classroom, another conversation out of focus behind. Natural window light, authentic skin, restrained colors, warm human mood. No machinery being operated. No text, logos, watermark, suits, handshakes, graduation caps. Illustrative fictional people, not documentation of a real event.
+

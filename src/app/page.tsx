@@ -1,10 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, ChartLineUp, Clock, MapPin, UsersThree } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, ArrowDown, MapPin } from "@phosphor-icons/react/dist/ssr";
 import { AudienceCard } from "@/components/AudienceCard";
-import { FeatureBand, FeatureItem } from "@/components/FeatureBand";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { EncounterImage } from "@/components/EncounterImage";
 import { ProcessSteps } from "@/components/ProcessSteps";
-import { SectionHeading } from "@/components/SectionHeading";
 import { getStudioContent } from "@/lib/content";
 import { TrackedLink } from "@/components/TrackedLink";
 
@@ -12,36 +10,35 @@ export default async function HomePage() {
   const content = await getStudioContent();
   const quote = content.testimonials[0];
   return <>
-    <section className="bg-white">
-      <div className="page-shell grid gap-0 py-8 sm:py-12 lg:grid-cols-[0.88fr_1.12fr] lg:py-16">
-        <div className="flex flex-col justify-center bg-brand-navy p-7 text-white sm:p-12 lg:rounded-l-[16px]">
-          <p className="eyebrow text-brand-lime">Zukunft trifft Mittelstand</p>
-          <h1 className="display mt-5 text-5xl font-extrabold sm:text-6xl">Unternehmen kommen in die Schule.</h1>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/80">Das regionale Azubi-Speed-Dating für Schülerinnen, Schüler und Ausbildungsbetriebe.</p>
-          <div className="mt-8 flex flex-wrap gap-3"><TrackedLink eventName="audience_cta_click" eventProperties={{ audience: "schule", source: "home_hero" }} href="/kontakt?rolle=schule" className="inline-flex min-h-12 items-center gap-2 rounded-[10px] bg-brand-green px-5 font-bold text-white transition hover:-translate-y-px hover:bg-brand-lime hover:text-brand-navy">Als Schule anfragen <ArrowRight size={20} /></TrackedLink><TrackedLink eventName="audience_cta_click" eventProperties={{ audience: "unternehmen", source: "home_hero" }} href="/kontakt?rolle=unternehmen" className="inline-flex min-h-12 items-center gap-2 rounded-[10px] border border-white/50 px-5 font-bold text-white transition hover:bg-white hover:text-brand-navy">Als Unternehmen teilnehmen</TrackedLink></div>
-          <p className="note mt-8 text-brand-lime">Echte Begegnungen.<br />Echte Chancen.</p>
+    <section className="home-hero">
+      <div className="page-shell hero-grid">
+        <div className="hero-copy">
+          <p className="hero-location"><MapPin size={18} /> Fürth · Nürnberg · Erlangen</p>
+          <h1 className="display">Unternehmen kommen <span>in die Schule.</span></h1>
+          <p className="hero-intro">Beim regionalen Azubi-Speed-Dating treffen Jugendliche die Menschen hinter den Ausbildungsberufen. Direkt im Klassenzimmer. Auf Augenhöhe.</p>
+          <div className="hero-actions">
+            <TrackedLink eventName="audience_cta_click" eventProperties={{ audience: "schule", source: "home_hero" }} href="/kontakt?rolle=schule" className="button button-lime">Als Schule anfragen <ArrowRight size={20} /></TrackedLink>
+            <TrackedLink eventName="audience_cta_click" eventProperties={{ audience: "unternehmen", source: "home_hero" }} href="/kontakt?rolle=unternehmen" className="button button-outline">Als Unternehmen teilnehmen <ArrowRight size={20} /></TrackedLink>
+          </div>
+          <a href="#begegnung" className="hero-discover">Das Format kennenlernen <ArrowDown size={18} /></a>
         </div>
-        <ImagePlaceholder label="Schülerinnen, Schüler und Unternehmen im Gespräch" className="min-h-[25rem] rounded-none lg:min-h-[35rem] lg:rounded-r-[16px]" />
+        <div className="hero-visual"><EncounterImage label="Eine Ausbilderin spricht mit zwei Jugendlichen über ein mechanisches Werkstück im Klassenzimmer." preload /><p className="hero-promise">Echte Begegnungen.<br /><span>Echte Chancen.</span></p></div>
       </div>
     </section>
+    <div className="region-strip"><div className="page-shell"><p>Berufsorientierung beginnt mit einem Gespräch.</p><span>In der Schule. Mit Betrieben aus der Region.</span></div></div>
 
-    <FeatureBand>
-      <FeatureItem icon={<UsersThree size={30} weight="duotone" />} title="Persönliche Gespräche" text="Berufe werden im direkten Austausch greifbar." />
-      <FeatureItem icon={<Clock size={30} weight="duotone" />} title="Kurze Wege" text="Einfach geplant und direkt in der Schule umgesetzt." />
-      <FeatureItem icon={<MapPin size={30} weight="duotone" />} title="Starke Region" text="Fürth, Nürnberg, Erlangen und Umgebung." />
-      <FeatureItem icon={<ChartLineUp size={30} weight="duotone" />} title="Mehr Chancen" text="Kontakte, die über den Tag hinaus wirken." />
-    </FeatureBand>
+    <section id="begegnung" className="page-shell encounter-section">
+      <div className="encounter-copy"><h2 className="display">Wie sieht dein<br />Beruf eigentlich aus?</h2><p>Eine Frage, die viel in Bewegung bringen kann. Jugendliche lernen Ausbildungsberufe im persönlichen Austausch kennen – mit Raum für ihre Fragen und ohne Bewerbungsdruck.</p><p>Unternehmen bringen Einblicke aus ihrem Alltag mit. Wir schaffen den Rahmen, damit beide Seiten ins Gespräch kommen.</p><Link href="/idee" className="text-link">Mehr über die Idee <ArrowRight size={20} /></Link></div>
+      <EncounterImage variant="craft" label="Ein Handwerker erklärt zwei Jugendlichen eine Holzverbindung an einem Schultisch." />
+    </section>
 
-    <section className="page-shell py-20 sm:py-28"><SectionHeading eyebrow="Die Idee" title="Begegnung statt Bewerbungsmarathon." intro={<p>Jugendliche lernen Ausbildungsberufe dort kennen, wo sie ohnehin sind. Unternehmen zeigen Persönlichkeit, Praxis und Perspektive. So wird aus Orientierung ein echtes Gespräch.</p>} /><div className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center"><ImagePlaceholder label="Echte Begegnung im Klassenzimmer" className="min-h-[21rem]" /><div className="prose-copy text-lg text-brand-ink/75"><p>Wir schaffen einen klaren Rahmen für kurze Gespräche zwischen Schulen und regionalen Unternehmen.</p><ul><li>Einfach für Schulen zu organisieren</li><li>Direkter Zugang zu motivierten Jugendlichen</li><li>Persönliche Einblicke ohne Bewerbungsdruck</li></ul><Link href="/idee" className="mt-7 inline-flex items-center gap-2 font-bold text-brand-green">Die Idee kennenlernen <ArrowRight size={20} /></Link></div></div></section>
+    <section className="audience-section"><div className="page-shell"><div className="section-intro"><h2 className="display">Zusammen wird<br />Ausbildung greifbar.</h2><p>Sie möchten Berufsorientierung an Ihrer Schule gestalten oder Ihren Ausbildungsbetrieb vorstellen? Hier geht es weiter.</p></div><div className="audience-grid"><AudienceCard kind="schule" /><AudienceCard kind="unternehmen" /></div></div></section>
 
-    <section className="bg-white py-20 sm:py-28"><div className="page-shell"><SectionHeading eyebrow="Für wen?" title="Zwei Seiten. Ein gemeinsames Ziel." intro={<p>Schulen geben Orientierung. Unternehmen geben Einblicke. Wir verbinden beide Seiten mit einem Format, das in den Alltag passt.</p>} align="center" /><div className="mt-12 grid gap-6 md:grid-cols-2"><AudienceCard kind="schule" /><AudienceCard kind="unternehmen" /></div></div></section>
+    <section className="page-shell process-section"><div className="section-intro"><h2 className="display">Vom ersten Kontakt<br />zum nächsten Schritt.</h2><p>Wir stimmen den Tag gemeinsam ab. So bleibt vor Ort Zeit für das, worauf es ankommt: die Gespräche.</p></div><ProcessSteps /></section>
 
-    <section className="page-shell py-20 sm:py-28"><SectionHeading eyebrow="So läuft es ab" title="Einfach. Effizient. Persönlich." intro={<p>Von der gemeinsamen Planung bis zum nächsten Kontakt bleibt der Ablauf klar und überschaubar.</p>} /><div className="mt-12"><ProcessSteps /></div></section>
+    {quote ? <section className="quote-section"><figure className="page-shell"><blockquote className="display">„{quote.quote}“</blockquote><figcaption>{quote.name}{quote.role ? `, ${quote.role}` : ""}{quote.organization ? `, ${quote.organization}` : ""}</figcaption></figure></section> : null}
+    {content.partners.length ? <section className="page-shell partners-section"><h2 className="display">Gemeinsam in der Region.</h2><ul>{content.partners.map((partner) => <li key={partner.name}>{partner.url ? <a href={partner.url} target="_blank" rel="noreferrer">{partner.name}</a> : partner.name}</li>)}</ul></section> : null}
 
-    {quote ? <section className="bg-brand-mist py-20 sm:py-28"><div className="page-shell grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-center"><div className="image-placeholder min-h-[18rem]" aria-label="Portraitplatzhalter"><p className="image-placeholder__label">Echte Stimmen<br /><span className="font-body text-base font-normal text-white/75">Portrait folgt nach Freigabe</span></p></div><figure><blockquote className="display text-4xl font-bold text-brand-navy sm:text-5xl">„{quote.quote}“</blockquote><figcaption className="mt-6 text-brand-ink/70">{quote.name}{quote.role ? `, ${quote.role}` : ""}{quote.organization ? `, ${quote.organization}` : ""}</figcaption></figure></div></section> : null}
-
-    {content.partners.length ? <section className="bg-white py-16 sm:py-20"><div className="page-shell"><SectionHeading eyebrow="Gemeinsam in der Region" title="Partner, die Begegnungen möglich machen." intro={<p>Diese Organisationen unterstützen das Format und seine Wirkung vor Ort.</p>} /><ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{content.partners.map((partner) => <li key={partner.name} className="rounded-[10px] border border-brand-line bg-brand-mist p-4 font-display text-xl font-bold text-brand-navy">{partner.url ? <a href={partner.url} className="underline decoration-brand-lime underline-offset-4" target="_blank" rel="noreferrer">{partner.name}</a> : partner.name}</li>)}</ul></div></section> : null}
-
-    <section className="page-shell py-20 sm:py-28"><div className="rounded-[16px] bg-brand-green p-8 text-white sm:p-12 lg:flex lg:items-end lg:justify-between lg:gap-10"><div><p className="eyebrow text-brand-lime">Bereit für den nächsten Schritt?</p><h2 className="display mt-4 max-w-2xl text-4xl font-extrabold sm:text-5xl">Bringen wir Menschen und Möglichkeiten zusammen.</h2></div><Link href="/kontakt" className="mt-8 inline-flex min-h-12 shrink-0 items-center gap-2 rounded-[10px] bg-white px-6 font-bold text-brand-navy transition hover:-translate-y-px hover:bg-brand-lime">Jetzt Kontakt aufnehmen <ArrowRight size={20} /></Link></div></section>
+    <section className="contact-band"><div className="page-shell"><div><h2 className="display">Der nächste Schritt?<br />Ein Gespräch mit uns.</h2><p>Erzählen Sie uns von Ihrer Schule oder Ihrem Betrieb.</p></div><Link href="/kontakt" className="button button-lime">Jetzt Kontakt aufnehmen <ArrowRight size={22} /></Link></div></section>
   </>;
 }

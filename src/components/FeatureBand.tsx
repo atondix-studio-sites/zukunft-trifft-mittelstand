@@ -5,5 +5,5 @@ export function FeatureBand({ children }: { children: ReactNode }) {
 }
 
 export function FeatureItem({ icon, title, text }: { icon: ReactNode; title: string; text: string }) {
-  return <div className="border-l border-white/20 pl-4"><div className="text-brand-lime">{icon}</div><p className="mt-3 font-display text-xl font-bold leading-none">{title}</p><p className="mt-2 text-sm text-white/70">{text}</p></div>;
+  return <div className="flex items-start gap-3"><div className="shrink-0 text-brand-lime" aria-hidden="true">{icon}</div><div><p className="font-display text-xl font-bold leading-tight">{title}</p><p className="mt-2 text-sm text-white/80">{text}</p></div></div>;
 }

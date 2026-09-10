@@ -6,7 +6,7 @@ import { ConsentSettingsButton } from "@/components/ConsentSettingsButton";
 
 export function SiteFooter({ info }: { info: SiteInfo }) {
   return (
-    <footer className="mt-20 bg-brand-navy text-white">
+    <footer className="bg-brand-navy text-white">
       <div className="page-shell grid gap-10 py-14 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
         <div>
           <Image src="/brand/logo.svg" alt="Zukunft trifft Mittelstand" width={260} height={78} className="h-14 w-auto brightness-0 invert" />
