@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 156" role="img" aria-labelledby="title desc">
+  <title id="title">Zukunft trifft Mittelstand</title>
+  <desc id="desc">Zwei Menschen bilden eine offene Tür neben der Wortmarke Zukunft trifft Mittelstand.</desc>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <path stroke="#063247" d="M27 118V75c0-20 14-36 32-36s32 16 32 36v43"/>
+    <path stroke="#137D3D" d="M83 118V63c0-22 16-39 36-39s36 17 36 39v55"/>
+    <path stroke="#063247" d="M14 118c0-27 17-47 39-47s39 20 39 47"/>
+    <path stroke="#137D3D" d="M78 118c0-31 20-54 46-54s46 23 46 54"/>
+    <circle cx="59" cy="21" r="14" fill="#063247" stroke="none"/>
+    <circle cx="119" cy="10" r="14" fill="#137D3D" stroke="none"/>
+    <path stroke="#7FCB45" d="M151 28h23l-9 13 16 2"/>
+  </g>
+  <g fill="#063247" font-family="Arial, sans-serif" font-weight="800" letter-spacing="1">
+    <text x="202" y="48" font-size="31">ZUKUNFT</text>
+    <text x="202" y="84" font-size="31">TRIFFT</text>
+    <text x="202" y="120" font-size="31">MITTELSTAND</text>
+  </g>
+</svg>

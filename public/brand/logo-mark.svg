@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 150" role="img" aria-labelledby="title desc">
+  <title id="title">Zukunft trifft Mittelstand Signet</title>
+  <desc id="desc">Zwei abstrahierte Personen bilden eine offene Tür.</desc>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <path stroke="#063247" d="M22 126V75c0-21 15-37 34-37s34 16 34 37v51"/>
+    <path stroke="#137D3D" d="M84 126V61c0-25 17-43 38-43s38 18 38 43v65"/>
+    <path stroke="#063247" d="M10 126c0-29 19-51 43-51s43 22 43 51"/>
+    <path stroke="#137D3D" d="M78 126c0-34 22-59 50-59s42 25 42 59"/>
+    <circle cx="56" cy="22" r="15" fill="#063247" stroke="none"/>
+    <circle cx="122" cy="10" r="15" fill="#137D3D" stroke="none"/>
+  </g>
+</svg>
