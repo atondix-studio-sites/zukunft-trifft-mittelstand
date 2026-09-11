@@ -34,7 +34,10 @@ export function ConsentBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const sync = () => setVisible(readConsent() === "pending");
+    const sync = (event?: Event) => {
+      const choice = event instanceof CustomEvent ? event.detail : readConsent();
+      setVisible(choice === "pending");
+    };
     sync();
     window.addEventListener(EVENT, sync);
     window.addEventListener("storage", sync);

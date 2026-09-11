@@ -28,7 +28,7 @@ body { margin: 0; background: var(--white); color: var(--ink); font-family: var(
 button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
 .home-hero :focus-visible, .contact-band :focus-visible, footer :focus-visible { outline-color: var(--lime); }
-h1, h2, h3 { text-wrap: balance; overflow-wrap: break-word; }
+h1, h2, h3 { text-wrap: balance; overflow-wrap: anywhere; }
 p { text-wrap: pretty; }
 .page-shell { width: min(100% - 3rem, 78rem); margin-inline: auto; }
 .display { font-family: var(--font-display); letter-spacing: -0.025em; line-height: 1.04; }
@@ -159,3 +159,11 @@ p { text-wrap: pretty; }
 
 .hero-visual .encounter-image figcaption { top: 0; bottom: auto; }
 label:has(input:focus-visible) { outline: 3px solid var(--green); outline-offset: 3px; }
+.contact-form fieldset, .contact-form label { min-width: 0; }
+.contact-form input:not([type="radio"]):not([type="checkbox"]), .contact-form textarea { min-width: 0; width: 100%; font-size: 1rem; }
+footer a, footer button { display: inline-flex; min-height: 44px; align-items: center; }
+[aria-label="Datenschutzeinstellungen"] :focus-visible { outline-color: var(--lime); }
+@media (max-width: 360px) {
+  .hero-copy h1 { font-size: 2.65rem; }
+  [aria-label="Datenschutzeinstellungen"] .page-shell { width: 100%; }
+}
