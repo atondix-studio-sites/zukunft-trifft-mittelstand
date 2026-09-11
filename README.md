@@ -28,7 +28,7 @@ Setze vor dem Produktivbetrieb `SITE_URL` und `ATONDIX_STUDIO_SITE_TOKEN`. Ohne 
 
 ## Atondix Studio
 
-Das SDK wird in `src/components/StudioSdk.tsx` nach der Interaktion geladen. Der gleiche Token wird serverseitig für den Content-Snapshot und clientseitig für Leads, Analytics und den Revision-Bridge verwendet. Analytics bleibt bis zur aktiven Zustimmung auf `pending`.
+Das SDK wird in `src/components/StudioSdk.tsx` nach der Hydrierung geladen. Derselbe Site-Token wird serverseitig für den Content-Snapshot und clientseitig für Leads und Analytics verwendet; die Revision-Bridge funktioniert ohne Token. Das Kontaktformular sendet direkt an den Studio-Collector, auch nach interner Navigation und ohne geladenes SDK. Analytics bleibt bis zur aktiven Zustimmung auf `pending`.
 
 Die stabilen Content-IDs stehen in `src/lib/content.ts`: `site_info`, `announcement`, `events`, `testimonials`, `faq` und `partners`. Content wird serverseitig mit einer 60-Sekunden-Revalidierung gelesen; bei Fehlern oder leeren Collections bleiben Fallbacks bestehen.
 

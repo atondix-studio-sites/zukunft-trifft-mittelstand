@@ -1,3 +1,4 @@
+import { ContactDetail } from "@/components/ContactDetail";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/dist/ssr";
@@ -15,8 +16,8 @@ export function SiteFooter({ info }: { info: SiteInfo }) {
         <div>
           <p className="font-display text-lg font-bold">Kontakt</p>
           <ul className="mt-4 grid gap-3 text-sm text-white/75">
-            <li className="flex gap-2"><EnvelopeSimple size={20} className="mt-0.5 shrink-0 text-brand-lime" /><span>{info.contact_email}</span></li>
-            <li className="flex gap-2"><Phone size={20} className="mt-0.5 shrink-0 text-brand-lime" /><span>{info.contact_phone}</span></li>
+            <li className="flex gap-2"><EnvelopeSimple size={20} className="mt-0.5 shrink-0 text-brand-lime" /><ContactDetail kind="email" value={info.contact_email} /></li>
+            <li className="flex gap-2"><Phone size={20} className="mt-0.5 shrink-0 text-brand-lime" /><ContactDetail kind="phone" value={info.contact_phone} /></li>
             <li className="flex gap-2"><MapPin size={20} className="mt-0.5 shrink-0 text-brand-lime" /><span>{info.address}</span></li>
           </ul>
         </div>

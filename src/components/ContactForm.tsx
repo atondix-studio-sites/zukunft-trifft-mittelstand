@@ -1,26 +1,60 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowRight } from "@phosphor-icons/react";
 import { trackEvent } from "@/lib/analytics";
 
 type Role = "schule" | "unternehmen";
 
-export function ContactForm({ initialRole, configured }: { initialRole?: Role; configured: boolean }) {
+export function ContactForm({ initialRole, token }: { initialRole?: Role; token?: string }) {
+  const configured = Boolean(token);
   const [role, setRole] = useState<Role>(initialRole ?? "schule");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [started, setStarted] = useState(false);
+  const startedAt = useRef(0);
+  const pending = useRef(false);
 
   useEffect(() => {
-    const onSent = () => { setStatus("success"); setMessage("Vielen Dank. Ihre Nachricht ist angekommen. Wir melden uns zeitnah."); trackEvent("contact_form_success", { role }); };
-    const onError = () => { setStatus("error"); setMessage("Die Nachricht konnte gerade nicht gesendet werden. Bitte nutzen Sie alternativ E-Mail oder Telefon."); trackEvent("contact_form_error", { role }); };
-    document.addEventListener("atondix:form:sent", onSent);
-    document.addEventListener("atondix:form:error", onError);
-    return () => { document.removeEventListener("atondix:form:sent", onSent); document.removeEventListener("atondix:form:error", onError); };
-  }, [role]);
+    startedAt.current = Date.now();
+  }, []);
 
-  return <form data-atondix-form className="surface-card p-6 sm:p-8" onFocus={() => { if (!started) { setStarted(true); trackEvent("contact_form_start", { role }); } }} onSubmit={() => { setStatus("sending"); setMessage(""); }}>
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!token || pending.current) return;
+    const form = event.currentTarget;
+    const fields = Object.fromEntries(new FormData(form));
+    pending.current = true;
+    setStatus("sending");
+    setMessage("");
+    let consent = "pending";
+    try {
+      const stored = localStorage.getItem("atondix-consent");
+      if (stored === "granted" || stored === "denied") consent = stored;
+    } catch { /* Lead intake also works without browser storage. */ }
+    try {
+      const response = await fetch("https://studio.atondix.de/api/collect/forms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(15000),
+        body: JSON.stringify({ siteToken: token, fields, honeypot: String(fields.website || ""), formStartedAt: startedAt.current, path: window.location.pathname, url: window.location.href, referrer: document.referrer, consent, occurredAt: new Date().toISOString() }),
+      });
+      if (!response.ok) throw new Error("Submission failed");
+      form.reset();
+      startedAt.current = Date.now();
+      setStatus("success");
+      setMessage("Vielen Dank. Ihre Nachricht ist angekommen. Wir melden uns zeitnah.");
+      trackEvent("contact_form_success", { role });
+    } catch {
+      setStatus("error");
+      setMessage("Der Versand konnte nicht bestätigt werden. Ihre Eingaben bleiben erhalten. Bitte versuchen Sie es später erneut oder nutzen Sie einen verfügbaren Kontaktweg.");
+      trackEvent("contact_form_error", { role });
+    } finally {
+      pending.current = false;
+    }
+  }
+
+  return <form className="contact-form surface-card min-w-0 p-6 sm:p-8" aria-busy={status === "sending"} onFocus={() => { if (!started) { setStarted(true); trackEvent("contact_form_start", { role }); } }} onSubmit={submit}>
     <fieldset disabled={!configured || status === "sending"}>
       <legend className="display text-3xl font-bold text-brand-navy">Ich bin …</legend>
       <div className="mt-4 grid grid-cols-2 gap-2 rounded-[10px] bg-brand-mist p-1">
@@ -37,7 +71,7 @@ export function ContactForm({ initialRole, configured }: { initialRole?: Role; c
       <label className="mt-4 flex items-start gap-3 text-sm text-brand-ink/75"><input required name="privacy" value="yes" type="checkbox" className="mt-1 h-4 w-4 accent-brand-green" /> <span>Ich stimme der Verarbeitung meiner Angaben gemäß <a href="/datenschutz" className="font-semibold text-brand-green underline underline-offset-2">Datenschutzerklärung</a> zu. *</span></label>
       <button type="submit" className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-[10px] bg-brand-green px-5 font-bold text-white transition hover:-translate-y-px hover:bg-brand-navy disabled:cursor-not-allowed disabled:opacity-60">{status === "sending" ? "Wird gesendet …" : "Nachricht senden"}<ArrowRight size={20} aria-hidden="true" /></button>
     </fieldset>
-    {!configured ? <p className="mt-4 rounded-[10px] bg-brand-mist p-3 text-sm text-brand-ink/75" role="status">Das Formular wird gerade eingerichtet. Bitte nutzen Sie vorübergehend die Kontaktdaten nebenan.</p> : null}
+    {!configured ? <p className="mt-4 rounded-[10px] bg-brand-mist p-3 text-sm text-brand-ink/75" role="status">Das Formular ist derzeit nicht verfügbar. Sobald die Kontaktwege freigeschaltet sind, können Sie uns hier erreichen.</p> : null}
     {message ? <p className={`mt-4 rounded-[10px] p-3 text-sm ${status === "error" ? "bg-red-50 text-red-800" : "bg-brand-mist text-brand-navy"}`} role={status === "error" ? "alert" : "status"}>{message}</p> : null}
   </form>;
 }

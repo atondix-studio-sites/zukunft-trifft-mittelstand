@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import "./globals.css";
 import "@fontsource/barlow-semi-condensed/600.css";
 import "@fontsource/barlow-semi-condensed/700.css";
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  await connection();
   const content = await getStudioContent();
   const origin = process.env.SITE_URL || "http://localhost:3000";
   const sameAs = [content.site_info.linkedin_url, content.site_info.instagram_url].filter((url) => /^https:\/\//.test(url));
